@@ -1,0 +1,131 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  orderer0.rammiah.org:
+    container_name: orderer0.rammiah.org
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    volumes:
+        - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../crypto-config/ordererOrganizations/rammiah.org/orderers/orderer0.rammiah.org/msp:/var/hyperledger/orderer/msp
+        - ../crypto-config/ordererOrganizations/rammiah.org/orderers/orderer0.rammiah.org/tls/:/var/hyperledger/orderer/tls
+        - orderer0.rammiah.org:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+
+  peer0.org1.rammiah.org:
+    container_name: peer0.org1.rammiah.org
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.org1.rammiah.org
+      - CORE_PEER_ADDRESS=peer0.org1.rammiah.org:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.org1.rammiah.org:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.rammiah.org:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org1.rammiah.org:8051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/org1.rammiah.org/peers/peer0.org1.rammiah.org/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/org1.rammiah.org/peers/peer0.org1.rammiah.org/tls:/etc/hyperledger/fabric/tls
+        - peer0.org1.rammiah.org:/var/hyperledger/production
+    ports:
+      - 7051:7051
+
+  peer1.org1.rammiah.org:
+    container_name: peer1.org1.rammiah.org
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.org1.rammiah.org
+      - CORE_PEER_ADDRESS=peer1.org1.rammiah.org:8051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.org1.rammiah.org:8052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org1.rammiah.org:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.rammiah.org:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/org1.rammiah.org/peers/peer1.org1.rammiah.org/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/org1.rammiah.org/peers/peer1.org1.rammiah.org/tls:/etc/hyperledger/fabric/tls
+        - peer1.org1.rammiah.org:/var/hyperledger/production
+    ports:
+      - 8051:8051
+
+  peer2.org1.rammiah.org:
+    container_name: peer2.org1.rammiah.org
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer2.org1.rammiah.org
+      - CORE_PEER_ADDRESS=peer2.org1.rammiah.org:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer2.org1.rammiah.org:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer2.org1.rammiah.org:9051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.rammiah.org:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/org1.rammiah.org/peers/peer2.org1.rammiah.org/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/org1.rammiah.org/peers/peer2.org1.rammiah.org/tls:/etc/hyperledger/fabric/tls
+        - peer2.org1.rammiah.org:/var/hyperledger/production
+    ports:
+      - 9051:9051
+
+  peer3.org1.rammiah.org:
+    container_name: peer3.org1.rammiah.org
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer3.org1.rammiah.org
+      - CORE_PEER_ADDRESS=peer3.org1.rammiah.org:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer3.org1.rammiah.org:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer3.org1.rammiah.org:10051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.rammiah.org:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/org1.rammiah.org/peers/peer3.org1.rammiah.org/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/org1.rammiah.org/peers/peer3.org1.rammiah.org/tls:/etc/hyperledger/fabric/tls
+        - peer3.org1.rammiah.org:/var/hyperledger/production
+    ports:
+      - 10051:10051
+
+  peer4.org1.rammiah.org:
+    container_name: peer4.org1.rammiah.org
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer4.org1.rammiah.org
+      - CORE_PEER_ADDRESS=peer4.org1.rammiah.org:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer4.org1.rammiah.org:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer4.org1.rammiah.org:10051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.rammiah.org:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/org1.rammiah.org/peers/peer4.org1.rammiah.org/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/org1.rammiah.org/peers/peer4.org1.rammiah.org/tls:/etc/hyperledger/fabric/tls
+        - peer4.org1.rammiah.org:/var/hyperledger/production
+    ports:
+      - 11051:11051

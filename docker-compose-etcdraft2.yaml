@@ -1,0 +1,49 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+volumes:
+  orderer1.rammiah.org:
+  orderer2.rammiah.org:
+
+networks:
+  rbac:
+
+services:
+
+  orderer1.rammiah.org:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_LISTENPORT=8050
+    container_name: orderer1.rammiah.org
+    networks:
+      - rbac
+    volumes:
+      - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/rammiah.org/orderers/orderer1.rammiah.org/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/rammiah.org/orderers/orderer1.rammiah.org/tls/:/var/hyperledger/orderer/tls
+      - orderer1.rammiah.org:/var/hyperledger/production/orderer
+    ports:
+      - 8050:8050
+
+  orderer2.rammiah.org:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_LISTENPORT=9050
+    container_name: orderer2.rammiah.org
+    networks:
+      - rbac
+    volumes:
+      - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/rammiah.org/orderers/orderer2.rammiah.org/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/rammiah.org/orderers/orderer2.rammiah.org/tls/:/var/hyperledger/orderer/tls
+      - orderer2.rammiah.org:/var/hyperledger/production/orderer
+    ports:
+      - 9050:9050
