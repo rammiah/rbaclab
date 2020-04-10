@@ -1,3 +1,7 @@
 channel-artifacts/*
 crypto-config/*
 connection/*
+**/node_modules
+connection-org1.json
+connection-org1.yaml
+**/wallet

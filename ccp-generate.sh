@@ -35,6 +35,6 @@ CAPORT=7054
 PEERPEM=crypto-config/peerOrganizations/org1.rammiah.org/tlsca/tlsca.org1.rammiah.org-cert.pem
 CAPEM=crypto-config/peerOrganizations/org1.rammiah.org/ca/ca.org1.rammiah.org-cert.pem
 
-echo "$(json_ccp $ORG $P0PORT $P1PORT $CAPORT $PEERPEM $CAPEM)" > connection/connection-org1.json
-echo "$(yaml_ccp $ORG $P0PORT $P1PORT $CAPORT $PEERPEM $CAPEM)" > connection/connection-org1.yaml
+echo "$(json_ccp $ORG $P0PORT $P1PORT $CAPORT $PEERPEM $CAPEM)" > connection-org1.json
+echo "$(yaml_ccp $ORG $P0PORT $P1PORT $CAPORT $PEERPEM $CAPEM)" > connection-org1.yaml
 
