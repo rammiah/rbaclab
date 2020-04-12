@@ -1,19 +1,53 @@
 {
     "files": [
         {
-
+            "name": "file-a",
+            "permission": "permission-a"
         },
         {
-
+            "name": "file-b",
+            "permission": "permission-b"
+        },
+        {
+            "name": "file-c",
+            "permission": "permission-c"
         }
     ],
     "permissions": [
-
+        {
+            "id": "permission-a"
+        },
+        {
+            "id": "permission-b"
+        },
+        {
+            "id": "permission-c"
+        }
     ],
     "roles": [
-
+        {
+            "id": "role-a",
+            "permissions": [
+                "permission-a"
+            ]
+        },
+        {
+            "id": "role-b",
+            "permissions": [
+                "permission-b"
+            ]
+        },
+        {
+            "id": "role-c",
+            "permissions": [
+                "permission-c"
+            ]
+        }
     ],
     "users": [
-        
+        {
+            "name": "user1",
+            "roles": ["role-a"]
+        }
     ]
 }

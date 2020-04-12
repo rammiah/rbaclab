@@ -102,6 +102,7 @@ services:
       - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/peer/crypto/peerOrganizations/org1.rammiah.org/peers/peer0.org1.rammiah.org/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/peer/crypto/peerOrganizations/org1.rammiah.org/peers/peer0.org1.rammiah.org/tls/ca.crt
       - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/peer/crypto/peerOrganizations/org1.rammiah.org/users/Admin@org1.rammiah.org/msp
+      - GOPROXY=https://goproxy.cn
     working_dir: /opt/gopath/src/peer
     command: /bin/bash
     volumes:
