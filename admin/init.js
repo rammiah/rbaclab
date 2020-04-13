@@ -4,41 +4,106 @@ const {Wallets, Gateway} = require('fabric-network');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const path = require('path');
-const {File} = require('./entity.js');
+// const {File} = require('./entity.js');
 
-async function addFiles(contract, files) {
+async function addFile(file, connArgs) {
+    const gateway = new Gateway();
     try {
-        // console.log(JSON.stringify(files));
-        for (let file of files) {
-            console.log(JSON.stringify(file))
-            await contract.submitTransaction('addFile', JSON.stringify(file));
-        }
+        // console.log('connect to the gateway');
+        await gateway.connect(...connArgs);
+        const channel = await gateway.getNetwork('rbacchannel');
+        const contract = channel.getContract('rbac', 'org.rammiah.rbac');
+        await contract.submitTransaction('addFile', JSON.stringify(file));
+    } catch (err) {
+        console.log(`addFile error: ${err.message}`)
+    } finally {
+        gateway.disconnect();
+    }
+}
+
+async function addFiles(files, connArgs) {
+    try {
+        const ps = files.map(file => addFile(file, connArgs));
+        await Promise.all(ps);
     } catch (err) {
         console.log(`addFiles error: ${err.message}`);
     }
 }
 
-async function addPermissions(contract, permissions) {
-    for (let permission of permissions) {
+async function addPermission(permission, connArgs) {
+    const gateway = new Gateway();
+    try {
+        // console.log('connect to the gateway');
+        await gateway.connect(...connArgs);
+        const channel = await gateway.getNetwork('rbacchannel');
+        const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         await contract.submitTransaction('addPermission', JSON.stringify(permission));
+    } catch (err) {
+        console.log(`addPermission error: ${err.message}`)
+    } finally {
+        gateway.disconnect();
     }
 }
 
-async function addRoles(contract, roles) { 
-    for (let role of roles) {
+async function addPermissions(permissions, connArgs) {
+    try {
+        const ps = permissions.map(permission => addPermission(permission, connArgs));
+        await Promise.all(ps);
+    } catch (err) {
+        console.log(`addPermissions error: ${err.message}`);
+    }
+}
+
+async function addRole(role, connArgs) {
+    const gateway = new Gateway();
+    try {
+        // console.log('connect to the gateway');
+        await gateway.connect(...connArgs);
+        const channel = await gateway.getNetwork('rbacchannel');
+        const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         await contract.submitTransaction('addRole', JSON.stringify(role));
+    } catch (err) {
+        console.log(`addRole error: ${err.message}`)
+    } finally {
+        gateway.disconnect();
     }
-
 }
 
-async function addUsers(contract, users) {
-    for (let user of users) {
+async function addRoles(roles, connArgs) { 
+    try {
+        const ps = roles.map(role => addRole(role, connArgs));
+        await Promise.all(ps);
+    } catch (err) {
+        console.log(`addRoles error: ${err.message}`);
+    }
+}
+
+async function addUser(user, connArgs) {
+    const gateway = new Gateway();
+    try {
+        // console.log('connect to the gateway');
+        await gateway.connect(...connArgs);
+        const channel = await gateway.getNetwork('rbacchannel');
+        const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         await contract.submitTransaction('addUser', JSON.stringify(user));
+    } catch (err) {
+        console.log(`addUser error: ${err.message}`)
+    } finally {
+        gateway.disconnect();
+    }
+}
+
+async function addUsers(users, connArgs) {
+    try {
+        const ps = users.map(user => addUser(user, connArgs));
+        await Promise.all(ps);
+    } catch (err) {
+        console.log(`addUsers error: ${err.message}`);
     }
 }
 
 async function main() {
-    const gateway = new Gateway();
+    // const gateway = new Gateway();
     try {
         const wallet = await Wallets.newFileSystemWallet('./wallet');
         const label = 'admin';
@@ -48,26 +113,23 @@ async function main() {
             wallet: wallet,
             discovery: {enabled: true, asLocalhost: true},
         };
-        console.log('connect to the gateway');
-        await gateway.connect(connProfile, connOpt);
-        const channel = await gateway.getNetwork('rbacchannel');
-        const contract = channel.getContract('rbac', 'org.rammiah.rbac');
+        // console.log('connect to the gateway');
+        // await gateway.connect(connProfile, connOpt);
+        // const channel = await gateway.getNetwork('rbacchannel');
+        // const contract = channel.getContract('rbac', 'org.rammiah.rbac');
 
-        console.log('add file');
-        const file = new File('file-a', 'permission-a');
-        console.log(JSON.stringify(file));
-        const resp = await contract.submitTransaction('addFile', JSON.stringify(file));
-        console.log(`add file response: ${resp}`);
-        // const js = JSON.parse(fs.readFileSync('./rbac.json', 'utf8'));
+        // console.log('add file');
+        // const file = new File('file-a', 'permission-a');
+        // console.log(JSON.stringify(file));
+        // const resp = await contract.submitTransaction('addFile', JSON.stringify(file));
+        // console.log(`add file response: ${resp}`);
+        const js = JSON.parse(fs.readFileSync('./rbac.json', 'utf8'));
         // console.log(JSON.stringify(js, null, 2));
-        // await addFiles(contract, js['files']);
-        // await addPermissions(contract, js['permissions']);
-        // await addRoles(contract, js["roles"]);
-        // await addUsers(contract, js["users"]);
+        const connArgs = [connProfile, connOpt];
+        await Promise.all([addFiles(js['files'],connArgs), addPermissions(js['permissions'], connArgs),
+                      addRoles(js['roles'], connArgs), addUsers(js['users'], connArgs)]);
     } catch (err) {
-        console.log(`add file error: ${err}`)
-    } finally {
-        gateway.disconnect();
+        console.log(`Init system error: ${err}`)
     }
 }
 

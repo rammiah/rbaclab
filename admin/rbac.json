@@ -47,7 +47,28 @@
     "users": [
         {
             "name": "user1",
-            "roles": ["role-a"]
+            "roles": [
+                "role-a"
+            ]
+        },
+        {
+            "name": "user2",
+            "roles": [
+                "role-a",
+                "role-b"
+            ]
+        },
+        {
+            "name": "user3",
+            "roles": [
+                "role-b"
+            ]
+        },
+        {
+            "name": "user4",
+            "roles":[
+                "role-c"
+            ]
         }
     ]
 }
