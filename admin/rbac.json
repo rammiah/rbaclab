@@ -42,32 +42,51 @@
             "permissions": [
                 "permission-c"
             ]
-        }
-    ],
-    "users": [
-        {
-            "name": "user1",
-            "roles": [
-                "role-a"
-            ]
         },
         {
-            "name": "user2",
-            "roles": [
+            "id": "role-d",
+            "parents": [
                 "role-a",
                 "role-b"
             ]
         },
         {
-            "name": "user3",
+            "id": "role-e",
+            "parents": [
+                "role-d",
+                "role-c"
+            ]
+        }
+    ],
+    "users": [
+        {
+            "name": "User1@org1.rammiah.org",
+            "roles": [
+                "role-a"
+            ]
+        },
+        {
+            "name": "User2@org1.rammiah.org",
             "roles": [
                 "role-b"
             ]
         },
         {
-            "name": "user4",
-            "roles":[
+            "name": "User3@org1.rammiah.org",
+            "roles": [
                 "role-c"
+            ]
+        },
+        {
+            "name": "User4@org1.rammiah.org",
+            "roles":[
+                "role-d"
+            ]
+        },
+        {
+            "name": "User5@org1.rammiah.org",
+            "roles": [
+                "role-e"
             ]
         }
     ]

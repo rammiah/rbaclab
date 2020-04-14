@@ -1,0 +1,15 @@
+{
+  "name": "user",
+  "version": "1.0.0",
+  "description": "",
+  "main": "addWallet.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fabric-network": "^2.0.0-beta.4",
+    "js-yaml": "^3.13.1"
+  }
+}
