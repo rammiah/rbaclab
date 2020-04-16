@@ -19,9 +19,13 @@ async function main() {
             wallet: wallet,
             discovery: {enabled: true, asLocalhost: true},
         };
+        // 连接网络
         await gateway.connect(connProfile, connOpt);
+        // 获取channel连接
         const channel = await gateway.getNetwork('rbacchannel');
+        // 获取合约
         const contract = channel.getContract('rbac', 'org.rammiah.rbac');
+        // 执行合约
         const resp = await contract.evaluateTransaction('requestFile', file);
         console.log(`request file resp: ${resp.toString()}`);
     } catch (err) {
