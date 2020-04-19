@@ -9,8 +9,13 @@ async function main() {
     const gateway = new Gateway();
 
     try {
-        const user = process.argv[2];
-        const file = process.argv[3];
+        const args = process.argv.slice(2);
+        if (args.length !== 2) {
+            console.log(`2 parameters expected, got ${args.length}`);
+            process.exit(1);
+        }
+        const user = args[0];
+        const file = args[1];
         const wallet = await Wallets.newFileSystemWallet('./wallet');
         // const label = 'user';
         const connProfile = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../connection-org1.yaml'), 'utf8'));
@@ -26,7 +31,7 @@ async function main() {
         // 获取合约
         const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         // 执行合约
-        const resp = await contract.evaluateTransaction('requestFile', file);
+        const resp = await contract.evaluateTransaction('readFile', file);
         console.log(`request file resp: ${resp.toString()}`);
     } catch (err) {
         console.log(`request error: ${err.message}`);

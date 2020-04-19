@@ -2,59 +2,102 @@
     "files": [
         {
             "name": "file-a",
-            "permission": "permission-a"
+            "read_permission": "read-a",
+            "write_permission": "write-a",
+            "exec_permission": "exec-c"
         },
         {
             "name": "file-b",
-            "permission": "permission-b"
+            "read_permission": "read-b",
+            "write_permission": "write-b",
+            "exec_permission": "exec-b"
         },
         {
             "name": "file-c",
-            "permission": "permission-c"
+            "read_permission": "read-c",
+            "write_permission": "write-c",
+            "exec_permission": "exec-c"
+        },
+        {
+            "name": "file-d",
+            "read_permission": "read-a",
+            "write_permission": "",
+            "exec_permission": ""
         }
     ],
     "permissions": [
         {
-            "id": "permission-a"
+            "id": "read-a"
         },
         {
-            "id": "permission-b"
+            "id": "read-b"
         },
         {
-            "id": "permission-c"
+            "id": "read-c"
+        },
+        {
+            "id": "write-a"
+        },
+        {
+            "id": "write-b"
+        },
+        {
+            "id": "write-c"
+        },
+        {
+            "id": "exec-a"
+        },
+        {
+            "id": "exec-b"
+        },
+        {
+            "id": "exec-c"
         }
     ],
     "roles": [
         {
             "id": "role-a",
             "permissions": [
-                "permission-a"
-            ]
+                "read-a",
+                "write-a",
+                "exec-a"
+            ],
+            "parents": []
         },
         {
             "id": "role-b",
             "permissions": [
-                "permission-b"
-            ]
+                "read-b",
+                "write-b",
+                "exec-b"
+            ],
+            "parents": []
         },
         {
             "id": "role-c",
             "permissions": [
-                "permission-c"
-            ]
+                "read-c",
+                "write-c",
+                "exec-c"
+            ],
+            "parents": []
         },
         {
             "id": "role-d",
-            "parents": [
-                "role-a",
-                "role-b"
-            ]
+            "permissions": [
+                "read-a",
+                "write-b"
+            ],
+            "parents": []
         },
         {
             "id": "role-e",
+            "permissions": [
+                "read-b",
+                "read-c"
+            ],
             "parents": [
-                "role-d",
-                "role-c"
+                "role-a"
             ]
         }
     ],
