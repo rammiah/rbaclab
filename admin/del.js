@@ -10,7 +10,7 @@ async function main() {
 
     try {
         const args = process.argv.slice(2);
-        const validActions = ['getUser', 'getFile', 'getRole', 'getPermission'];
+        const validActions = ['delUser', 'delFile', 'delRole', 'delPermission'];
         if (validActions.indexOf(args[0]) === -1) {
             console.log(`不支持的操作：${args[0]}`);
             process.exit(1);
@@ -28,8 +28,7 @@ async function main() {
         const channel = await gateway.getNetwork('rbacchannel');
         const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         
-        const resp = await contract.evaluateTransaction(...args);
-        console.log(`${args[0]} respose: ${resp.toString()}`);
+        await contract.submitTransaction(...args);
     } catch (err) {
         console.log(`get error: ${err.message}`);
     } finally {

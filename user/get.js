@@ -17,7 +17,7 @@ async function main() {
         }
         // console.log(args.slice(2));
         const wallet = await Wallets.newFileSystemWallet('./wallet');
-        const label = 'admin';
+        const label = args[1];
         const connProfile = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../connection-org1.yaml'), 'utf8'));
         const connOpt = {
             identity: label,
@@ -28,7 +28,7 @@ async function main() {
         const channel = await gateway.getNetwork('rbacchannel');
         const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         
-        const resp = await contract.evaluateTransaction(...args);
+        const resp = await contract.evaluateTransaction(args[0], args[2]);
         console.log(`${args[0]} respose: ${resp.toString()}`);
     } catch (err) {
         console.log(`get error: ${err.message}`);

@@ -113,16 +113,6 @@ async function main() {
             wallet: wallet,
             discovery: {enabled: true, asLocalhost: true},
         };
-        // console.log('connect to the gateway');
-        // await gateway.connect(connProfile, connOpt);
-        // const channel = await gateway.getNetwork('rbacchannel');
-        // const contract = channel.getContract('rbac', 'org.rammiah.rbac');
-
-        // console.log('add file');
-        // const file = new File('file-a', 'permission-a');
-        // console.log(JSON.stringify(file));
-        // const resp = await contract.submitTransaction('addFile', JSON.stringify(file));
-        // console.log(`add file response: ${resp}`);
         const js = JSON.parse(fs.readFileSync('./rbac.json', 'utf8'));
         // console.log(JSON.stringify(js, null, 2));
         const connArgs = [connProfile, connOpt];
