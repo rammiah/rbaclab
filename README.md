@@ -1,52 +1,56 @@
-# RBAC environments setup
+# RBAC实验环境搭建
 
-## First: install required tools
+## 1. 运行要求
 
-OS: linux kernel based system or wsl(2) is OK.
+操作系统：使用linux内核操作系统或者windows的wsl2均可
 
-tools: docker 19.02 or higher, docker-compose 1.25.0 or higher, go 1.13 or higher, node 10 or 12
+工具要求：docker 19+，docker-compose 1.25+，node 10或者node 12，npm 6.14+。
 
-## Setup images
+## 2. 下载镜像
 
-Change to project directory, run:
+打开项目地址，运行：
 
 ```shell
 ./bootstrap.sh
 ```
 
-to download images
+将会下载实验所需镜像，请保持网络通畅。
 
-## Generate certificates and init blocks
+## 3. 生成实验使用的证书和初始块
 
-run
+运行
 
 ```shell
 ./generate.sh
 ```
 
-will generate all user CA, connection profiles, create genesis block, channel block, update anchor block.
+生成各种CA证书，区块链初始块和背书策略等配置文件，也会生成配置文件。
 
-## Run network
+## 4. 运行网络
 
-run
+运行网络将会安装链码，需要`rbac-contract`文件夹存在于同级目录，否则安装链码会失败。
+
+如果运行不是首次运行，而其中对链码进行了修改，需要先对旧文件进行清理，清理将会停止现有docker中的所有容器，删除容器并清除挂载的文件系统，建议在虚拟机或者沙盒中进行。
+
+运行网络：
 
 ```shell
 ./start-network.sh
 ```
 
-will start network named rbaclab_rbac, create channel, install chancode and commit to channel
+此命令将会运行实验所需的所有docker容器，安装链码并提交认证，在docker中运行链码实例，即可向外提供服务。
 
-## Clean network
+## 5. 清理网络 
 
-run 
+运行
 
 ```shell
 ./clean-network.sh
 ```
 
-will clean all the containers and volumes, ***be careful!!!***
+清理docker中所有的容器，删除数据，恢复到初始状态。***谨慎执行！！！***
 
+## 6. 其他脚本
 
-
-
-
+- `restart.sh`，重启网络，不会删除数据，简单的关闭所有docker再启动。
+- `ccp-generate.sh`，生成网络连接的配置文件，包括yaml和json两个版本。
