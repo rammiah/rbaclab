@@ -93,22 +93,22 @@ queryInstalled () {
 
 approveForMyOrg() {
     # peer lifecycle chaincode approveformyorg --channelID $CHANNEL_NAME --name rbac --version ${VERSION} --package-id ${PACKAGE_ID} --sequence ${VERSION} --waitForEvent
-    peer lifecycle chaincode approveformyorg --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name rbac --version ${VERSION} --package-id ${PACKAGE_ID} --sequence ${VERSION} --waitForEvent
+    peer lifecycle chaincode approveformyorg $PEER_CONN_PARMS -o orderer0.rammiah.org:7050 --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name rbac --version ${VERSION} --package-id ${PACKAGE_ID} --sequence ${VERSION} --waitForEvent
 }
 
 commitChaincode() {
-    peer lifecycle chaincode commit -o orderer0.rammiah.org:7050 --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name rbac $PEER_CONN_PARMS --version ${VERSION} --sequence ${VERSION}
+    peer lifecycle chaincode commit $PEER_CONN_PARMS -o orderer0.rammiah.org:7050 --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name rbac --version ${VERSION} --sequence ${VERSION}
 }
 
 parseConnArgs() {
-    CONN_PARMS=""
+    PEER_CONN_PARMS=""
     # PEERS=""
     for i in 0 1 2 3 4; do
         setGlobal $i
         # PEER="peer$i.org1"
-        CONN_PARMS="$CONN_PARMS --peerAddresses $CORE_PEER_ADDRESS"
+        PEER_CONN_PARMS="$PEER_CONN_PARMS --peerAddresses $CORE_PEER_ADDRESS"
         TLSINFO="--tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE"
-        CONN_PARMS="$CONN_PARMS $TLSINFO"
+        PEER_CONN_PARMS="$PEER_CONN_PARMS $TLSINFO"
     done
 }
 
