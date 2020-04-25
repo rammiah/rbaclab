@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/peer/crypto/peerOrganizations/org1.rammiah.org/users/Admin@org1.rammiah.org/msp
 CORE_PEER_ADDRESS=peer0.org1.rammiah.org:7051
 CORE_PEER_LOCALMSPID="Org1MSP"

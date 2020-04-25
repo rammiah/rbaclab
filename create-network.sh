@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "-----starting orderers and peers-----"
 docker-compose -f docker-compose-cli.yaml -f docker-compose-couch.yaml \

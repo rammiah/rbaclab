@@ -12,17 +12,27 @@ npm install
 
 系统初始化前请保证证书文件已生成并且网络已启动，且链码安装成功。
 
-初始化分为两部分，第一个是用户身份的初始化，使用`fabric-network`提供的`wallet`将用户的凭据存储在本地，简化使用方式。第二个就是系统数据的初始化，包括文件，用户，权限，角色等数据的写入。
+初始化部分需要将我们的管理员注册到ca中，然后注册我们的用户。
 
-- 用户身份初始化
+- 注册管理员
 
-  运行命令：
+  注册管理员使用的是fabric-ca的nodejs的api：
 
   ```shell
-  node addWallet.js
+  node enroll.js
   ```
 
-  创建`wallet`文件夹存储认证数据。
+  运行过后`wallet`目录中会存储我们的admin的身份凭证。
+
+- 注册用户
+
+  使用register和enroll完成用户的注册：
+
+  ```shell
+  ndoe register.js
+  ```
+
+  命令会将用户的身份凭证存储在用户目录下的`wallet`中。
 
 - RBAC系统初始化
 
@@ -42,8 +52,8 @@ npm install
 
 
 ```shell
-➜ node get.js getUser User1@org1.rammiah.org
-getUser respose: {"name":"User1@org1.rammiah.org","roles":["role-a"]}
+➜ node get.js getUser user1
+getUser respose: {"name":"user1","roles":["role-a"]}
 done
 ```
 
