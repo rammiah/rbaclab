@@ -4,7 +4,7 @@
             "name": "file-a",
             "read_permission": "read-a",
             "write_permission": "write-a",
-            "exec_permission": "exec-c"
+            "exec_permission": "exec-a"
         },
         {
             "name": "file-b",
@@ -103,31 +103,31 @@
     ],
     "users": [
         {
-            "name": "User1@org1.rammiah.org",
+            "name": "user1",
             "roles": [
                 "role-a"
             ]
         },
         {
-            "name": "User2@org1.rammiah.org",
+            "name": "user2",
             "roles": [
                 "role-b"
             ]
         },
         {
-            "name": "User3@org1.rammiah.org",
+            "name": "user3",
             "roles": [
                 "role-c"
             ]
         },
         {
-            "name": "User4@org1.rammiah.org",
+            "name": "user4",
             "roles":[
                 "role-d"
             ]
         },
         {
-            "name": "User5@org1.rammiah.org",
+            "name": "user5",
             "roles": [
                 "role-e"
             ]

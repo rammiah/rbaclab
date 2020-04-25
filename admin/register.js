@@ -9,10 +9,6 @@ const FabricCAServices = require('fabric-ca-client');
 const fs = require('fs');
 const path = require('path');
 
-async function addUser(username) {
-
-}
-
 async function main() {
     try {
         // Create a new file system based wallet for managing identities.
@@ -71,7 +67,7 @@ async function main() {
         // Create a new CA client for interacting with the CA.
         const caURL = ccp.certificateAuthorities['ca.org1.rammiah.org'].url;
         
-        const users = new Array(5).fill(0).map((v, idx) => 'user' + idx);
+        const users = new Array(5).fill(0).map((v, idx) => 'user' + (1 + idx));
         console.log(users);
         const ps = users.map(user => registerUser(user));
         await Promise.all(ps);
