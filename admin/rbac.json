@@ -23,6 +23,12 @@
             "read_permission": "read-a",
             "write_permission": "",
             "exec_permission": ""
+        },
+        {
+            "name": "file-e",
+            "read_permission": "",
+            "write_permission": "write-b",
+            "exec_permission": ""
         }
     ],
     "permissions": [
@@ -94,7 +100,7 @@
             "id": "role-e",
             "permissions": [
                 "read-b",
-                "read-c"
+                "write-c"
             ],
             "parents": [
                 "role-a"
@@ -123,6 +129,7 @@
         {
             "name": "user4",
             "roles":[
+                "role-c",
                 "role-d"
             ]
         },

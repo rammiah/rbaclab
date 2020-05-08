@@ -5,22 +5,16 @@ const yaml = require('js-yaml');
 const {Wallets, Gateway} = require('fabric-network');
 const path = require('path');
 
-async function main() {
-    const gateway = new Gateway();
+// export {writeFile};
+module.exports = writeFile;
 
+async function writeFile(username, filename) {
+    const gateway = new Gateway();
     try {
-        const args = process.argv.slice(2);
-        if (args.length !== 2) {
-            console.log(`2 parameters expected, got ${args.length}`);
-            process.exit(1);
-        }
-        const user = args[0];
-        const file = args[1];
         const wallet = await Wallets.newFileSystemWallet('./wallet');
-        // const label = 'user';
         const connProfile = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../connection-org1.yaml'), 'utf8'));
         const connOpt = {
-            identity: user,
+            identity: username,
             wallet: wallet,
             discovery: {enabled: true, asLocalhost: true},
         };
@@ -31,19 +25,33 @@ async function main() {
         // 获取合约
         const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         // 执行合约
-        const resp = await contract.evaluateTransaction('writeFile', file);
-        console.log(`request file resp: ${resp.toString()}`);
+        const resp = await contract.evaluateTransaction('writeFile', filename);
+        return resp.toString() === 'true';
     } catch (err) {
         console.log(`request error: ${err.message}`);
+        return false;
     } finally {
         gateway.disconnect();
     }
 }
 
+async function main() {
+    const args = process.argv.slice(2);
+    if (args.length !== 2) {
+        console.log(`2 parameters expected, got ${args.length}`);
+        process.exit(1);
+    }
+    const user = args[0];
+    const file = args[1];
+    const resp = await writeFile(user, file);
+    console.log(`request file resp: ${resp.toString()}`);
+}
 
-main().then(() => {
-    console.log('done');
-}).catch(err => {
-    console.log(`request file permission error: ${err.message}`)
-    console.log(err.stack);
-});
+if (process.argv[1] === 'writeFile.js') {
+    main().then(() => {
+        console.log('done');
+    }).catch(err => {
+        console.log(`request file permission error: ${err.message}`)
+        console.log(err.stack);
+    });
+}
