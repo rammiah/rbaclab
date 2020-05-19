@@ -32,7 +32,7 @@ async function testUser(username) {
 async function main() {
     // 实际运行得出的结果表
     const result = await Promise.all(Users.map(user => testUser(user)));
-    // console.log(result);
+    console.log(result);
     // 两者必须相等
     assert.deepStrictEqual(ExpectedUserToFile, result);
 }

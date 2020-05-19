@@ -50,7 +50,7 @@ async function main() {
     console.log(`request file resp: ${resp.toString()}`);
 }
 
-if (process.argv[1] === 'execFile.js') {
+if (process.argv[1].endsWith('/execFile.js')) {
     main().then(() => {
         console.log('done');
     }).catch(err => {

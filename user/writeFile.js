@@ -47,7 +47,7 @@ async function main() {
     console.log(`request file resp: ${resp.toString()}`);
 }
 
-if (process.argv[1] === 'writeFile.js') {
+if (process.argv[1].endsWith('/writeFile.js')) {
     main().then(() => {
         console.log('done');
     }).catch(err => {

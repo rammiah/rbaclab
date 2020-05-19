@@ -49,7 +49,7 @@ async function main() {
     console.log(`request file resp: ${resp.toString()}`);
 }
 
-if (process.argv[1] === 'readFile.js') {
+if (process.argv[1].endsWith('/readFile.js')) {
     main().then(() => {
         console.log('done');
     }).catch(err => {

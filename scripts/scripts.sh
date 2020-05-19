@@ -131,5 +131,11 @@ installChaincode
 queryInstalled
 
 parseConnArgs
+
+echo "Approving for my organization..."
 approveForMyOrg
+
+echo "Commiting chaincode..."
 commitChaincode
+
+echo "done"

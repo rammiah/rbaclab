@@ -14,6 +14,7 @@ async function addFile(file, connArgs) {
         const channel = await gateway.getNetwork('rbacchannel');
         const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         await contract.submitTransaction('addFile', JSON.stringify(file));
+        console.log(`addFile ${JSON.stringify(file)} done`);
     } catch (err) {
         console.log(`addFile error: ${err.message}`)
     } finally {
@@ -38,6 +39,7 @@ async function addPermission(permission, connArgs) {
         const channel = await gateway.getNetwork('rbacchannel');
         const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         await contract.submitTransaction('addPermission', JSON.stringify(permission));
+        console.log(`addPermission ${JSON.stringify(permission)} done`);
     } catch (err) {
         console.log(`addPermission error: ${err.message}`)
     } finally {
@@ -62,6 +64,7 @@ async function addRole(role, connArgs) {
         const channel = await gateway.getNetwork('rbacchannel');
         const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         await contract.submitTransaction('addRole', JSON.stringify(role));
+        console.log(`addRole ${JSON.stringify(role)} done`);
     } catch (err) {
         console.log(`addRole error: ${err.message}`)
     } finally {
@@ -69,7 +72,7 @@ async function addRole(role, connArgs) {
     }
 }
 
-async function addRoles(roles, connArgs) { 
+async function addRoles(roles, connArgs) {
     try {
         const ps = roles.map(role => addRole(role, connArgs));
         await Promise.all(ps);
@@ -86,6 +89,7 @@ async function addUser(user, connArgs) {
         const channel = await gateway.getNetwork('rbacchannel');
         const contract = channel.getContract('rbac', 'org.rammiah.rbac');
         await contract.submitTransaction('addUser', JSON.stringify(user));
+        console.log(`addUser ${JSON.stringify(user)} done`);
     } catch (err) {
         console.log(`addUser error: ${err.message}`)
     } finally {
